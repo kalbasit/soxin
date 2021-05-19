@@ -34,7 +34,7 @@ let
     "darwinSpecialArgs"
   ];
 in
-nix-darwin.darwinSystem (recursiveUpdate args' {
+nix-darwin.lib.darwinSystem (recursiveUpdate args' {
   specialArgs = {
     # send home-manager down to the nix-darwin modules
     inherit home-manager;
