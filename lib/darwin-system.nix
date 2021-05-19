@@ -48,18 +48,18 @@ nix-darwin.darwinSystem (recursiveUpdate args' {
   # include the global special arguments.
   // globalSpecialArgs
   # include the nix-darwin special arguments.
-  // nixosSpecialArgs;
+  // darwinSpecialArgs;
 
 
   modules =
     # include the global modules
     globalModules
     # include the nix-darwin modules
-    ++ nixosModules
+    ++ darwinModules
     # include Soxin modules
     ++ (singleton self.nixosModule)
     # include home-manager modules
-    ++ (singleton home-manager.nixosModules.home-manager)
+    ++ (singleton home-manager.darwinModules.home-manager)
     # configure Nix registry so users can find soxin
     ++ singleton { nix.registry.soxin.flake = self; }
     # configure home-manager
