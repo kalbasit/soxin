@@ -7,10 +7,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nix-darwin = {
+      url = "github:LnL7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     futils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, home-manager, futils } @ inputs:
+  outputs = { self, nixpkgs, futils, ... } @ inputs:
     let
       inherit (nixpkgs) lib;
       inherit (lib) recursiveUpdate;
