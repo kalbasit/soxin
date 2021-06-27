@@ -16,6 +16,8 @@ in
 , name
 , includeKeyboardLayout ? false
 , includeTheme ? false
+, includeTool ? false
+, includeProgrammingLanguages ? false
 , extraOptions ? { }
 }:
 
@@ -37,5 +39,27 @@ recursiveUpdate
       if builtins.isString value then config.soxin.themes.${value}.${name}
       else value.${name};
   });
+
+  tool = optionalAttrs includeTool (mkOption {
+    type = with types; listOf [ str modules.tools.toolsModule ];
+    default = config.soxin.settings.tools;
+    description = "Tool to use for ${name}.";
+    apply = value: map (v:
+      if builtins.isString v then config.soxin.tools.${v}.${name}
+      else v.${name}
+    ) value;
+  });
+
+  
+  programmingLanguages = optionalAttrs includeProgrammingLanguages (mkOption {
+    type = with types; listOf [ str modules.programmingLanguages.programmingLanguagesModule ];
+    default = config.soxin.settings.programmingLanguage;
+    description = "Programming language to use for ${name}.";
+    apply = value: map (v:
+      if builtins.isString v then config.soxin.programmingLanguages.${v}.${name}
+      else v.${name}
+    ) value;
+  });
 }
   extraOptions
+
